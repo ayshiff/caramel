@@ -158,10 +158,6 @@ let ocaml_to_erlang_primitive_op t =
       Name.qualified
         ~m:(Name.atom (Atom.mk "caramel_runtime"))
         ~f:(Name.atom (Atom.mk "binary_concat"))
-  | "|>" ->
-      Name.qualified
-        ~m:(Name.atom (Atom.mk "caramel_runtime"))
-        ~f:(Name.atom (Atom.mk "pipe"))
   | "!=" | "<>" -> to_erl_op "=/="
   | "not" -> to_erl_op "not"
   | "&&" -> to_erl_op "and"

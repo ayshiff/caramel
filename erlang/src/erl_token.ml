@@ -4,6 +4,7 @@ type t =
   | ANDALSO of Parse_info.t
   | ARROW of Parse_info.t
   | FAT_ARROW of Parse_info.t
+  | FUN_PIPE of Parse_info.t
   | ATOM of string * Parse_info.t
   | BAND of Parse_info.t
   | BANG of Parse_info.t

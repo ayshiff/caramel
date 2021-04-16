@@ -338,6 +338,9 @@ and pp_expression ?(print_prefix=true) prefix ppf expr ~module_ =
       pp_expression prefix ppf expr ~module_
   | Expr_fun_ref { fref_name = name; fref_arity } ->
       Format.fprintf ppf "fun %a/%d" pp_name name fref_arity
+  | Expr_pipe { f = _; x = _ } ->
+      (* TODO *)
+      Format.fprintf ppf "|>";
   | Expr_apply { fa_name; fa_args; _ } -> (
       pp_expression "" ppf fa_name ~module_;
       match fa_args with
@@ -477,7 +480,7 @@ and pp_fun_case _prefix ppf { c_lhs; c_rhs; _ } ~module_ =
         Format.fprintf ppf "\n";
         "  "
     | Expr_map_update (_, _)
-    | Expr_catch _ | Expr_macro _ | Expr_nil | Expr_fun _ | Expr_apply _
+    | Expr_catch _ | Expr_macro _ | Expr_nil | Expr_fun _ | Expr_apply _ | Expr_pipe _
     | Expr_fun_ref _ | Expr_list _ | Expr_tuple _ | Expr_cons _ | Expr_literal _
     | Expr_name _ ->
         " "

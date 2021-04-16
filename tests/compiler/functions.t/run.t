@@ -243,7 +243,10 @@
     Divide = fun
       (X, Y) -> erlang:'div'(Y, X)
     end,
-    caramel_runtime:pipe(caramel_runtime:pipe(caramel_runtime:pipe(10, subtract(2)), Divide(4)), fun print_int/1).
+    % TODO
+    Caramel@Tmp1 = subtract(10, 2),
+    Caramel@Tmp2 = divide(Caramel@Tmp1, 4),
+    Caramel@Tmp3 = print_int(Caramel@Tmp2).
   
   
 

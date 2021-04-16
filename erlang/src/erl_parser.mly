@@ -84,7 +84,7 @@ let rec expr_to_mod_attribute expr =
 
 (* Keyword Tokens *)
 %token <Parse_info.t> AFTER AND ANDALSO BAND BEGIN BNOT BOR BSL BSR BXOR CASE
-CATCH DIV END FUN IF NOT OF OR ORELSE RECEIVE REM THROW TRY WHEN XOR
+CATCH DIV END FUN FUN_PIPE IF NOT OF OR ORELSE RECEIVE REM THROW TRY WHEN XOR
 
 (* Symbol Tokens *)
 %token <Parse_info.t> ARROW FAT_ARROW ARROW_BACK BANG
@@ -238,6 +238,7 @@ let expr :=
   | e = expr_tuple; { e }
   | e = expr_map; { e }
   | e = expr_case; { e }
+  | e = expr_pipe; { e }
   | e = expr_fun; { e }
   | e = expr_comment; { e }
   | e = expr_if; { e }
@@ -321,6 +322,10 @@ let map_field :=
 let expr_case :=
   | CASE; ~ = expr; OF; cases = separated_list(SEMICOLON, case_branch); END;
     { Expr.case expr cases }
+  
+let expr_pipe :=
+  | x = expr; FUN_PIPE; f = fun_decl;
+    { Expr.pipe f x }
 
 let case_branch :=
   | lhs = expr; ARROW; guard = guard?; rhs = expr;

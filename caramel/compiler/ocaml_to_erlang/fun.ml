@@ -258,7 +258,23 @@ and mk_expression exp ~var_names ~modules ~functions ~module_name =
                   (mk_expression arg ~var_names ~modules ~functions ~module_name))
           args
       in
-      Expr.apply name args
+      let pipe =
+        match
+          mk_expression expr ~var_names ~modules ~functions ~module_name
+        with
+        |  Erlang.Ast.Expr_pipe { f; x } -> Some((f, x))
+        | x -> None
+      in
+      if Option.is_some pipe
+        then (
+          let (f, x) = pipe in
+          let f_x = Expr.apply f x in
+          let random_var_name = string_of_int (Random.bits 100000) in
+          let new_var = random_var_name in
+          let binding = Expr.bind new_var f_x in
+          Expr.var binding random_var_name
+        )
+      else (Expr.apply name args)
   | Texp_record { fields; extended_expression; _ } -> (
       let fields =
         fields |> Array.to_list

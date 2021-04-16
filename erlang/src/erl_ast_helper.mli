@@ -65,6 +65,8 @@ module Expr : sig
 
   val list : expr list -> expr
 
+  val pipe : fun_decl -> expr -> expr
+
   val map_field : expr -> expr -> map_field
 
   val map : map_field list -> expr

@@ -98,6 +98,8 @@ module Expr = struct
 
   let comment c e = Expr_comment (c, e)
 
+  let pipe f x = Expr_pipe { f = f; x = x }
+
   let try_ try_expr ~catch ~after =
     Expr_try { try_expr; try_catch = catch; try_after = after }
 

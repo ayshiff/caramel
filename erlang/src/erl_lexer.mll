@@ -97,6 +97,7 @@ rule token = parse
   | "-" { DASH (tokinfo lexbuf) }
   | "--" { MINUS_MINUS (tokinfo lexbuf) }
   | "|" { PIPE (tokinfo lexbuf) }
+  | "|>" { FUN_PIPE (tokinfo lexbuf) }
   | "/" { SLASH (tokinfo lexbuf) }
   | "(" { LEFT_PARENS (tokinfo lexbuf) }
   | ")" { RIGHT_PARENS (tokinfo lexbuf) }

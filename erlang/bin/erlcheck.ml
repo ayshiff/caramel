@@ -68,6 +68,7 @@ module Rebind = struct
     | Expr_cons (_, expr) -> check_rebind_in_expression ~symbols expr
     | Expr_fun cases -> List.iter (check_rebind_in_case ~symbols) cases
     | Expr_fun_ref _ -> ()
+    | Expr_pipe _ -> ()
     | Expr_if cases ->
         List.iter
           (fun (_, expr) -> check_rebind_in_expression ~symbols expr)

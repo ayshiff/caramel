@@ -30,6 +30,8 @@ and literal =
 
 and recv = { rcv_cases : case list; rcv_after : case option } [@@deriving sexp]
 
+and pipe = { f : fun_decl; x : expr } [@@deriving sexp]
+
 and catch_class = Class_error | Class_throw [@@deriving sexp]
 
 and try_catch = {
@@ -47,6 +49,7 @@ and expr =
   | Expr_cons of expr list * expr
   | Expr_fun of case list
   | Expr_fun_ref of { fref_name : name; fref_arity : int }
+  | Expr_pipe of pipe
   | Expr_if of (expr list list * expr) list
   | Expr_let of let_binding * expr
   | Expr_list of expr list
